@@ -1,0 +1,19 @@
+*STATA CODE FOR SETTING THE "DATE" VARIABLE*:
+
+generate date4 = date(date,"MDY")
+format %tdNNDDCCYY date4
+
+*STATA CODE FOR SPECIFYING THE PANELVAR AND TIMEVAR*:
+
+xtset ctfips date4
+
+
+*STATA CODE FOR THE COVID-19 CONFIRMED CASES MODEL (model for the daily cumulative number of confirmed COVID-19 cases per 1,000 county population)*:
+
+xtgls confirmedcasesjhu1kpop twoweeklagactivecases twoweeklagimportedcases covidexposure1000people daysdecreasingcovidcases twoweeklagstayinghome twoweeklagworkingfromhome tripsperson milesperson transitmodeshare dayssincesoe enforcementseverity dayssincephase1reopening dayssincephase2reopening dayssincemaskrequired testingcapacity testsdone1000people medianincome twoweeklagunemplclaims changeinconsumption africanamericans hispanicamericans peopleolderthan60 populationdensity hotspots1000people weekend, panels(hetero) corr (psar1)
+
+
+*STATA CODE FOR THE COVID-19 DEATHS MODEL (model for the daily cumulative number of deaths from COVID-19 per 1,000 county population)*:
+
+xtgls deathsjhu1kpop twoweeklagactivecases twoweeklagimportedcases covidexposure1000people daysdecreasingcovidcases twoweeklagstayinghome twoweeklagworkingfromhome tripsperson milesperson dayssincemaskrequired dayssincesoe dayssincephase1reopening dayssincephase2reopening enforcementseverity ventilatorshortage icus1000people testingcapacity medianincome africanamericans hispanicamericans male peopleolderthan60, panels(hetero) corr (psar1)
+
